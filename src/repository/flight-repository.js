@@ -13,7 +13,7 @@ class FlightRepository {
         }
         // if(data.minPrice && data.maxPrice) {
         //     Object.assign(filter, {
-        //         [Op.and]: [
+        //         [Op.and]: [ 
         //             {price: {[Op.lte]: data.maxPrice} },
         //             {price: {[Op.gte]: data.minPrice} }
         //         ]
@@ -59,6 +59,20 @@ class FlightRepository {
                 where: filterObject
             });
             return flight;
+        } catch (error) {
+            console.log("Something went wrong in the repository layer");
+            throw {error};
+        }
+    }
+
+    async updateFlights(flightId, data) {
+        try {
+            await Flights.update(data, {
+                where: {
+                    id: flightId
+                }
+            });
+            return true;
         } catch (error) {
             console.log("Something went wrong in the repository layer");
             throw {error};
